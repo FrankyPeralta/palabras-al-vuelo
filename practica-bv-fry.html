@@ -247,6 +247,11 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     <button class="go" id="sSave" type="button">Guardar</button>
     <p class="note" id="sMsg" role="status"></p>
     <p class="note" id="sStore"></p>
+    <p class="note" id="sVoice"></p>
+    <div class="linkrow">
+      <button class="ghost" id="tEn" type="button">Probar voz en inglés</button>
+      <button class="ghost" id="tEs" type="button">Probar voz en español</button>
+    </div>
     <div class="linkrow">
       <button class="ghost" id="sDef" type="button">Volver a la lista inicial</button>
       <button class="ghost" id="sReset" type="button">Borrar estrellas y progreso</button>
@@ -293,18 +298,47 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
 
   /* ---------- voz ---------- */
   var voiceOk = ('speechSynthesis' in window);
+  var voiceCache = [];
+  function loadVoices(){ try { voiceCache = speechSynthesis.getVoices() || []; } catch(e){ voiceCache = []; } }
+  if (voiceOk){
+    loadVoices();
+    try { speechSynthesis.addEventListener('voiceschanged', loadVoices); } catch(e){ try { speechSynthesis.onvoiceschanged = loadVoices; } catch(e2){} }
+  }
+  function normLang(l){ return (l || '').toLowerCase().replace('_', '-'); }
+  // Inglés: solo pronunciación británica (en-GB). Español: la variante más cercana al Perú.
+  var VOICE_PREF = { en: ['en-gb'], es: ['es-pe', 'es-419', 'es-mx', 'es-us', 'es-co', 'es-cl', 'es-ar', 'es-es'] };
+  var EN_NAMES = /serena|daniel|kate|oliver|google uk english female|google uk english male/i;
+  function pickVoice(lang){
+    var list = voiceCache.filter(function(v){ return normLang(v.lang).indexOf(lang) === 0; });
+    var prefs = VOICE_PREF[lang];
+    for (var i = 0; i < prefs.length; i++){
+      var m = list.filter(function(v){ return normLang(v.lang) === prefs[i]; });
+      if (m.length){
+        if (lang === 'en'){ var named = m.filter(function(v){ return EN_NAMES.test(v.name); }); if (named.length) return named[0]; }
+        return m[0];
+      }
+    }
+    return lang === 'es' && list.length ? list[0] : null;
+  }
   function say(text, lang){
     try {
       if (!voiceOk) return;
       speechSynthesis.cancel();
       var u = new SpeechSynthesisUtterance(text);
-      var want = lang === 'es' ? 'es' : 'en';
-      var v = (speechSynthesis.getVoices() || []).filter(function(x){ return x.lang.toLowerCase().indexOf(want) === 0; })[0];
-      u.lang = v ? v.lang : (lang === 'es' ? 'es-PE' : 'en-US');
-      if (v) u.voice = v;
+      var v = pickVoice(lang === 'es' ? 'es' : 'en');
+      if (v){ u.voice = v; u.lang = v.lang; } else { u.lang = lang === 'es' ? 'es-MX' : 'en-GB'; }
       u.rate = 0.8;
       speechSynthesis.speak(u);
     } catch(e){}
+  }
+  function voiceInfo(){
+    if (!voiceOk) return 'Este navegador no tiene voz. Léanle las palabras en voz alta.';
+    loadVoices();
+    var en = pickVoice('en'), es = pickVoice('es');
+    var t = 'Voz en inglés: ' + (en ? en.name + ' (' + normLang(en.lang) + ')' : 'no hay una voz británica instalada, se usa la del sistema') +
+            '. Voz en español: ' + (es ? es.name + ' (' + normLang(es.lang) + ')' : 'la del sistema') + '.';
+    if (!en) t += ' Instala una voz de inglés del Reino Unido en los ajustes de voz del dispositivo.';
+    return t;
   }
   function speakBtn(word, lang, small){
     var b = el('button', 'say' + (small ? ' sm' : ''));
@@ -519,7 +553,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     var e = S.sent[R.lang][w], i = findWord(e.s, w);
     var pre = e.s.slice(0, i), post = e.s.slice(i + w.length), cap = !pre.trim();
     function fmt(x){ return cap ? x.charAt(0).toUpperCase() + x.slice(1) : x; }
-    var heard = (pre + ' … ' + post).replace(/\s+/g, ' ');
+    var heard = e.s;
     st.appendChild(el('p','ask','Escucha la oración y toca la palabra que falta.'));
     st.appendChild(speakBtn(heard, R.lang));
     var line = el('div','sentence'), blank = el('span','blank',' ');
@@ -567,6 +601,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
   /* ---------- Ajustes ---------- */
   function fillSettings(){
     $('sStore').textContent = storageOk ? 'Las estrellas y el progreso se guardan en este dispositivo.' : 'Este navegador no deja guardar las estrellas. Puede ser una pestaña privada. Abre la página en una pestaña normal o desde el ícono de la pantalla de inicio.';
+    $('sVoice').textContent = voiceInfo();
     $('fName').value = S.name || '';
     $('fEs').value = S.es.join('\n');
     $('fEn').value = S.en.join('\n');
@@ -593,6 +628,8 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     return out;
   }
   $('goSet').addEventListener('click', function(){ fillSettings(); $('sMsg').textContent = ''; armed = false; $('sReset').classList.remove('warn'); $('sReset').textContent = 'Borrar estrellas y progreso'; show('vSet'); });
+  $('tEn').addEventListener('click', function(){ say('The cat jumps over the box.', 'en'); });
+  $('tEs').addEventListener('click', function(){ say('El caballo corre muy rápido.', 'es'); });
   $('sBack').addEventListener('click', home);
   $('sSave').addEventListener('click', function(){
     S.name = $('fName').value.trim() || 'campeón';

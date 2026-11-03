@@ -21,6 +21,10 @@ Juego corto de ortografía para primer grado: dictado en español y spelling en 
 - **iPhone o iPad:** abre la dirección en Safari, toca Compartir y elige **Añadir a pantalla de inicio**.
 - **Android:** abre la dirección en Chrome, toca el menú de tres puntos y elige **Instalar app** o **Añadir a pantalla de inicio**.
 
+## Voz
+
+La app usa la voz del dispositivo. En inglés busca una voz británica (en-GB) y lee la oración completa. En "Para mamá o papá" se ve qué voz se está usando y hay botones para probarla. Si el dispositivo no tiene voz británica, hay que instalarla en los ajustes de voz del sistema.
+
 ## Cambiar las palabras
 
 Dentro de cada lista, entra a **Para mamá o papá**. Ahí se escribe el nombre del niño, las palabras y las oraciones. Se guarda solo en ese dispositivo.
