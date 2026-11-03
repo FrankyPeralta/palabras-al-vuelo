@@ -1,4 +1,4 @@
-const CACHE = 'palabras-v1';
+const CACHE = 'palabras-v2';
 const ASSETS = ['./', 'index.html', 'semana-8.html', 'practica-bv-fry.html', 'manifest.webmanifest',
   'icons/icon-192.png', 'icons/icon-512.png', 'icons/apple-touch-icon.png'];
 
@@ -19,7 +19,7 @@ self.addEventListener('fetch', e => {
   if (url.origin === location.origin) {
     // Con internet baja la versión más nueva; sin internet usa la guardada.
     e.respondWith(
-      fetch(req).then(res => {
+      fetch(req, { cache: 'no-cache' }).then(res => {
         const copy = res.clone();
         caches.open(CACHE).then(c => c.put(req, copy));
         return res;

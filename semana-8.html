@@ -258,6 +258,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
   var KEY = 'palabras-al-vuelo-v3';
   var DEF = {
     name: 'campeón',
+    v: '2026-11-03',
     es: ['botella','bueno','uvas','caballo','avión','invierno','cabaña','verduras','abierto','burrito','valiente','vaquita','barrer','obediente','vivir','biberón','volcán','llevar','árbol','veinte'],
     en: ['two','number','more','no','write','way','go','could','see','people'],
     sent: {"es": {"botella": {"s": "La botella está llena de agua.", "d": []}, "bueno": {"s": "El pan está muy bueno.", "d": []}, "uvas": {"s": "Me gustan las uvas moradas.", "d": []}, "caballo": {"s": "El caballo corre rápido.", "d": []}, "avión": {"s": "El avión vuela muy alto.", "d": []}, "invierno": {"s": "En invierno hace mucho frío.", "d": []}, "cabaña": {"s": "Dormimos en una cabaña del bosque.", "d": []}, "verduras": {"s": "Me como todas las verduras.", "d": []}, "abierto": {"s": "El mercado está abierto.", "d": []}, "burrito": {"s": "El burrito camina despacio.", "d": []}, "valiente": {"s": "El bombero es muy valiente.", "d": []}, "vaquita": {"s": "Vi una vaquita en el campo.", "d": []}, "barrer": {"s": "Ayudo a mamá a barrer.", "d": []}, "obediente": {"s": "Soy un niño obediente.", "d": []}, "vivir": {"s": "Me gusta vivir cerca del mar.", "d": []}, "biberón": {"s": "El bebé toma su biberón.", "d": []}, "volcán": {"s": "El volcán echa humo.", "d": []}, "llevar": {"s": "Voy a llevar mi mochila.", "d": []}, "árbol": {"s": "El pájaro está en el árbol.", "d": []}, "veinte": {"s": "En mi clase hay veinte niños.", "d": []}}, "en": {"two": {"s": "I have two dogs.", "d": ["go", "way"]}, "number": {"s": "What number is this?", "d": ["people", "write"]}, "more": {"s": "Can I have more water?", "d": ["go", "write"]}, "no": {"s": "I have no pens.", "d": ["go", "way"]}, "write": {"s": "I can write my name.", "d": ["people", "number"]}, "way": {"s": "Show me the way home.", "d": ["see", "write"]}, "go": {"s": "We go to school by bus.", "d": ["write", "number"]}, "could": {"s": "What could it be?", "d": ["no", "people"]}, "see": {"s": "Do you see the cat?", "d": ["go", "way"]}, "people": {"s": "Many people have this.", "d": ["number", "way"]}}},
@@ -266,7 +267,16 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
   var mem = null;
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
   function load(){
-    try { var r = localStorage.getItem(KEY); if (r) return Object.assign(clone(DEF), JSON.parse(r)); } catch(e){}
+    try {
+      var r = localStorage.getItem(KEY);
+      if (r){
+        var o = JSON.parse(r);
+        // Si la lista publicada cambió de versión, se reemplazan las palabras y las oraciones.
+        // Se conservan las estrellas, el progreso, el nombre y el idioma.
+        if (o.v !== DEF.v){ delete o.es; delete o.en; delete o.sent; o.v = DEF.v; }
+        return Object.assign(clone(DEF), o);
+      }
+    } catch(e){}
     return mem ? Object.assign(clone(DEF), mem) : clone(DEF);
   }
   var S = load();
