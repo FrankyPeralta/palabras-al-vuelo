@@ -6,7 +6,7 @@ Juego corto de ortografía para primer grado: dictado en español y spelling en 
 
 - `index.html`: portada para elegir la lista.
 - `semana-8.html`: dictado de la semana 8 y spelling en inglés.
-- `practica-bv-fry.html`: 45 palabras con b y v y la lista Fry.
+- `practica-bv-fry.html`: 46 palabras con b y v y la lista Fry.
 - `manifest.webmanifest`, `sw.js` e `icons/`: lo que permite instalarla como app y usarla sin internet.
 
 ## Publicar en GitHub Pages
