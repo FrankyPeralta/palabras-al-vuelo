@@ -246,6 +246,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     <div class="field"><label for="fEnS">English sentences</label><textarea id="fEnS" spellcheck="false" autocapitalize="off"></textarea><small>Una por línea: palabra: oración | opción falsa, opción falsa. Si no pones opciones falsas, el juego usa otras palabras de la lista.</small></div>
     <button class="go" id="sSave" type="button">Guardar</button>
     <p class="note" id="sMsg" role="status"></p>
+    <p class="note" id="sStore"></p>
     <div class="linkrow">
       <button class="ghost" id="sDef" type="button">Volver a la lista inicial</button>
       <button class="ghost" id="sReset" type="button">Borrar estrellas y progreso</button>
@@ -264,7 +265,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     sent: {"es": {"ómnibus": {"s": "El ómnibus lleva a los niños al colegio.", "d": []}, "botón": {"s": "Me falta un botón en la camisa.", "d": []}, "bote": {"s": "Remamos en un bote.", "d": []}, "barril": {"s": "El barril está lleno de agua.", "d": []}, "botas": {"s": "Uso botas cuando llueve.", "d": []}, "bebé": {"s": "El bebé duerme en su cuna.", "d": []}, "nube": {"s": "Hay una nube en el cielo.", "d": []}, "bigote": {"s": "Mi abuelo tiene bigote.", "d": []}, "burro": {"s": "El burro carga la leña.", "d": []}, "bolso": {"s": "Mamá guarda su llave en el bolso.", "d": []}, "babero": {"s": "El bebé usa un babero para comer.", "d": []}, "labios": {"s": "Con los labios damos un beso.", "d": []}, "escoba": {"s": "Barro el piso con la escoba.", "d": []}, "baño": {"s": "Me lavo los dientes en el baño.", "d": []}, "ballena": {"s": "La ballena vive en el mar.", "d": []}, "vaca": {"s": "La vaca come pasto.", "d": []}, "vela": {"s": "Soplo la vela del pastel.", "d": []}, "violín": {"s": "Mi tía toca el violín.", "d": []}, "vestido": {"s": "Mi mamá lleva un vestido azul.", "d": []}, "voto": {"s": "Mi papá fue a dar su voto.", "d": []}, "velero": {"s": "El velero navega en el mar.", "d": []}, "vaso": {"s": "Tomo agua en un vaso.", "d": []}, "vampiro": {"s": "El vampiro sale de noche.", "d": []}, "ventana": {"s": "Abro la ventana por la mañana.", "d": []}, "lava": {"s": "La lava sale del volcán.", "d": []}, "bien": {"s": "Yo limpio muy bien el baño.", "d": []}, "batidora": {"s": "Mamá usa la batidora en la cocina.", "d": []}, "libélula": {"s": "La libélula vuela sobre el agua.", "d": []}, "búho": {"s": "El búho duerme de día.", "d": []}, "abeja": {"s": "La abeja hace miel.", "d": []}, "búfalo": {"s": "El búfalo es muy grande.", "d": []}, "barco": {"s": "El barco navega por el mar.", "d": []}, "bandera": {"s": "La bandera del Perú es roja y blanca.", "d": []}, "bombero": {"s": "El bombero apaga el fuego.", "d": []}, "billete": {"s": "Papá me dio un billete de diez soles.", "d": []}, "abanico": {"s": "Con el abanico me hago aire.", "d": []}, "autobús": {"s": "Voy al colegio en autobús.", "d": []}, "bufanda": {"s": "En invierno uso una bufanda.", "d": []}, "nueva": {"s": "Estrené una mochila nueva.", "d": []}, "abuelo": {"s": "Mi abuelo me cuenta cuentos.", "d": []}, "batido": {"s": "Me tomo un batido de fresa.", "d": []}, "burrita": {"s": "La burrita come alfalfa.", "d": []}, "buena": {"s": "Mi mamá es muy buena cocinera.", "d": []}, "abierta": {"s": "La puerta está abierta.", "d": []}, "bailar": {"s": "Me gusta bailar con mamá.", "d": []}, "vivir": {"s": "Me gusta vivir cerca del mar.", "d": []}}, "en": {"people": {"s": "Many people have this.", "d": ["number", "way"]}, "go": {"s": "We go to school by bus.", "d": ["people", "two"]}, "no": {"s": "I have no pens.", "d": ["go", "way"]}, "write": {"s": "I can write my name.", "d": ["more", "people"]}, "my": {"s": "This is my dog.", "d": ["up", "who"]}, "than": {"s": "A dog is bigger than a cat.", "d": ["who", "now"]}, "first": {"s": "I am first in line.", "d": ["who", "these"]}, "number": {"s": "What number is this?", "d": ["people", "write"]}, "two": {"s": "I have two dogs.", "d": ["go", "way"]}, "see": {"s": "Do you see the cat?", "d": ["go", "way"]}, "more": {"s": "Can I have more water?", "d": ["go", "write"]}, "would": {"s": "I would like some milk.", "d": ["up", "two"]}, "who": {"s": "Who can write it?", "d": ["on", "not"]}, "am": {"s": "I am six years old.", "d": ["is", "do"]}, "its": {"s": "The dog wags its tail.", "d": ["it", "up"]}, "now": {"s": "Go to bed now.", "d": ["who", "these"]}, "many": {"s": "How many people can you see?", "d": ["over", "that"]}, "can": {"s": "I can jump high.", "d": ["over", "up"]}, "could": {"s": "What could it be?", "d": ["no", "people"]}, "way": {"s": "Show me the way home.", "d": ["see", "write"]}, "these": {"s": "Look at these dogs.", "d": ["this", "is"]}, "over": {"s": "The cat jumps over the box.", "d": ["who", "not"]}, "this": {"s": "I like this book.", "d": ["not", "who"]}, "what": {"s": "What is your name?", "d": ["up", "not"]}, "is": {"s": "My dad is at home.", "d": ["am", "do"]}, "it": {"s": "Do you see it?", "d": ["is", "its"]}, "have": {"s": "We have a cat.", "d": ["is", "up"]}, "on": {"s": "The book is on the table.", "d": ["who", "these"]}, "up": {"s": "Stand up now.", "d": ["who", "these"]}, "that": {"s": "Is that a dog?", "d": ["up", "who"]}, "not": {"s": "I do not have it.", "d": ["up", "who"]}, "do": {"s": "Do you see the dog?", "d": ["am", "is"]}, "you": {"s": "Can you see me?", "d": ["its", "up"]}}},
     stats: {}, stars: 0, lang: 'es'
   };
-  var mem = null;
+  var mem = null, storageOk = true;
   function clone(o){ return JSON.parse(JSON.stringify(o)); }
   function load(){
     try {
@@ -280,7 +281,8 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     return mem ? Object.assign(clone(DEF), mem) : clone(DEF);
   }
   var S = load();
-  function save(){ mem = clone(S); try { localStorage.setItem(KEY, JSON.stringify(S)); } catch(e){} }
+  function save(){ mem = clone(S); try { localStorage.setItem(KEY, JSON.stringify(S)); storageOk = true; } catch(e){ storageOk = false; } }
+  try { localStorage.setItem(KEY + '-t', '1'); localStorage.removeItem(KEY + '-t'); } catch(e){ storageOk = false; }
 
   function $(id){ return document.getElementById(id); }
   function el(tag, cls, text){ var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
@@ -352,10 +354,10 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
         }
       }
     }
-    if (w.length > 3){ var j = Math.floor(Math.random()*(w.length-1)); out.push(w.slice(0,j) + w[j+1] + w[j] + w.slice(j+2)); out.push(w.slice(0,j) + w.slice(j+1)); }
+    if (w.length > 1){ var j = Math.floor(Math.random()*(w.length-1)); out.push(w.slice(0,j) + w[j+1] + w[j] + w.slice(j+2)); if (w.length > 3) out.push(w.slice(0,j) + w.slice(j+1)); }
     if (w.length > 1){ var q = Math.floor(Math.random()*w.length); out.push(w.slice(0,q) + w[q] + w.slice(q)); }
     var seen = {}; seen[w] = 1;
-    return shuffle(out).filter(function(x){ if (!x || seen[x]) return false; seen[x] = 1; return true; });
+    return shuffle(out).filter(function(x){ if (!x || seen[x] || S[lang].indexOf(x) !== -1) return false; seen[x] = 1; return true; });
   }
   function distract(w, lang, n){
     var v = variants(w, lang);
@@ -564,6 +566,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
 
   /* ---------- Ajustes ---------- */
   function fillSettings(){
+    $('sStore').textContent = storageOk ? 'Las estrellas y el progreso se guardan en este dispositivo.' : 'Este navegador no deja guardar las estrellas. Puede ser una pestaña privada. Abre la página en una pestaña normal o desde el ícono de la pantalla de inicio.';
     $('fName').value = S.name || '';
     $('fEs').value = S.es.join('\n');
     $('fEn').value = S.en.join('\n');
@@ -589,7 +592,7 @@ input[type=text],textarea{border:3px solid var(--ink); border-radius:12px}
     t.split(/\n|,/).forEach(function(x){ x = x.trim().toLowerCase().slice(0, 20); if (x && !seen[x]){ seen[x] = 1; out.push(x); } });
     return out;
   }
-  $('goSet').addEventListener('click', function(){ fillSettings(); $('sMsg').textContent = ''; $('sReset').textContent = 'Borrar estrellas y progreso'; show('vSet'); });
+  $('goSet').addEventListener('click', function(){ fillSettings(); $('sMsg').textContent = ''; armed = false; $('sReset').classList.remove('warn'); $('sReset').textContent = 'Borrar estrellas y progreso'; show('vSet'); });
   $('sBack').addEventListener('click', home);
   $('sSave').addEventListener('click', function(){
     S.name = $('fName').value.trim() || 'campeón';
